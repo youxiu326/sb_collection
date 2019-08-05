@@ -33,6 +33,10 @@ public class MyArrayList<E> implements MyList<E> {
         return (E) elementData[index];
     }
 
+    public Object[] toArray() {
+        return Arrays.copyOf(elementData, size);
+    }
+
     @Override
     public boolean add(E object) {
         ensureExplicitCapacity(size+1);
@@ -92,7 +96,6 @@ public class MyArrayList<E> implements MyList<E> {
         rangeCheck(index);
         return elementData[index];
     }
-
 
     /**
      * 扩容的方法

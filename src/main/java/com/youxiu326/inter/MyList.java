@@ -6,9 +6,9 @@ package com.youxiu326.inter;
  */
 public interface MyList<E> {
 
-    public void add(E object);
+    public boolean add(E object);
 
-    public void add(int index, E object);
+    public boolean  add(int index, E object);
 
     public Object remove(int index);
 
@@ -17,4 +17,6 @@ public interface MyList<E> {
     public int getSize();
 
     public Object get(int index);
+
+    public Object[] toArray();
 } 
