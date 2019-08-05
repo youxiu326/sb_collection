@@ -1,7 +1,6 @@
 package com.youxiu326.collection;
 
 import com.youxiu326.inter.MyList;
-
 import java.util.Arrays;
 
 /**
@@ -9,7 +8,6 @@ import java.util.Arrays;
  * @param <E>
  */
 public class MyArrayList<E> implements MyList<E> {
-
 
     // 保存ArrayList中数据的数组
     private transient Object[] elementData;
@@ -30,36 +28,71 @@ public class MyArrayList<E> implements MyList<E> {
         elementData = new Object[initialCapacity];
     }
 
-    @Override
-    public void add(E object) {
-
+    @SuppressWarnings("unchecked")
+    E elementData(int index) {
+        return (E) elementData[index];
     }
 
     @Override
-    public void add(int index, E object) {
+    public boolean add(E object) {
         ensureExplicitCapacity(size+1);
         elementData[size++] = object;
+        return true;
     }
 
     @Override
-    public Object remove(int index) {
-        return null;
+    public boolean add(int index, E object) {
+        rangeCheck(index);
+        ensureExplicitCapacity(index+1);
+        // System.arraycopy 将数组从指定的源数组(从指定位置开始)复制到目标数组的指定位置
+        System.arraycopy(elementData, index, elementData, index+1, size-index);
+        elementData[index] = object;
+        size++;
+        return true;
+    }
+
+    @Override
+    public E remove(int index) {
+        E oldValue = elementData(index);
+        int numMoved = size - index - 1;
+        //获取删除下标之后的元素 往前移动一位 并将最后一位置空 让垃圾回收期回收
+        if (numMoved > 0)
+            System.arraycopy(elementData, index+1, elementData, index,
+                    numMoved);
+        elementData[--size] = null;
+        return oldValue;
     }
 
     @Override
     public boolean remove(E object) {
+        // ArrayList 可以保存null
+        if (object == null) {
+            for (int index = 0; index < size; index++)
+                if (elementData[index] == null) {
+                    fastRemove(index);
+                    return true;
+                }
+        } else {
+            for (int index = 0; index < size; index++)
+                if (object.equals(elementData[index])) {
+                    fastRemove(index);
+                    return true;
+                }
+        }
         return false;
     }
 
     @Override
     public int getSize() {
-        return 0;
+        return size;
     }
 
     @Override
     public Object get(int index) {
-        return null;
+        rangeCheck(index);
+        return elementData[index];
     }
+
 
     /**
      * 扩容的方法
@@ -81,4 +114,24 @@ public class MyArrayList<E> implements MyList<E> {
             elementData = Arrays.copyOf(elementData, newCapacity);
         }
     }
+
+    /**
+     * 删除最开始的一个元素
+     * @param index
+     */
+    private void fastRemove(int index) {
+        int numMoved = size - index - 1;
+        //获取删除下标之后的元素 往前移动一位 并将最后一位置空 让垃圾回收期回收
+        if (numMoved > 0)
+            System.arraycopy(elementData, index+1, elementData, index,
+                    numMoved);
+        elementData[--size] = null; // clear to let GC do its work
+    }
+
+    private void rangeCheck(int index) {
+        if (index >= size) {
+            throw new IndexOutOfBoundsException("数组越界啦!");
+        }
+    }
+
 }
