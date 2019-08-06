@@ -107,7 +107,7 @@ public class MyArrayList<E> implements MyList<E> {
         if (minCapacity - elementData.length > 0){
             // 原来数组的长度
             int oldCapacity = elementData.length;
-            // 扩大1.5倍后的长度  [    >>1     等于  除以 2]
+            // 扩大1.5倍后的长度  [    >>1     相当于  除以 2]
             int newCapacity = oldCapacity + (oldCapacity >> 1);
             if (newCapacity < minCapacity){
                 //如果初始长度为1 防止出现这种情况 1+(1/2)=1

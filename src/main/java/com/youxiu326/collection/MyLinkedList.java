@@ -42,6 +42,9 @@ public class MyLinkedList<E> implements MyList<E> {
 
     Node<E> node(int index) {
 
+        //[    >>1     相当于  除以 2]
+
+        //这个判断就是判断从前面取 与 后面取
         if (index < (size >> 1)) {
             Node<E> x = first;
             for (int i = 0; i < index; i++)
@@ -67,6 +70,7 @@ public class MyLinkedList<E> implements MyList<E> {
     @Override
     public boolean add(int index, E element) {
         checkPositionIndex(index);
+        //【如果插入的位置刚好等于链表长度说明插入到最末端的后面】 或者 【链表为空的情况下 插入0下标元素】
         if (index == size)
             linkLast(element);
         else
@@ -91,7 +95,8 @@ public class MyLinkedList<E> implements MyList<E> {
 
     @Override
     public Object get(int index) {
-        return null;
+        checkPositionIndex(index);
+        return node(index).item;
     }
 
     private void checkPositionIndex(int index) {
@@ -132,11 +137,22 @@ public class MyLinkedList<E> implements MyList<E> {
         size++;
     }
 
+
+    /**
+     * 正常逻辑插入链表
+     * 1.被插入节点的上一个节点指向新节点<br>
+     * 2.新节点的上一个节点指向被插入节点的上一个节点<br>
+     * 3.新节点的下一个节点指向被插入节点<br>
+     * @param e
+     * @param succ
+     */
     void linkBefore(E e, Node<E> succ) {
-        // assert succ != null;
+        // assert succ != null; succ
+        // 已经进行了下标判断 不会出现为null
         final Node<E> pred = succ.prev;
         final Node<E> newNode = new Node<>(pred, e, succ);
         succ.prev = newNode;
+        //如果该下标节点的上一个节点为null 说明此次插入下标为0
         if (pred == null)
             first = newNode;
         else
