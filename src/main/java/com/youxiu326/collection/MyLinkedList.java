@@ -40,6 +40,21 @@ public class MyLinkedList<E> implements MyList<E> {
         }
     }
 
+    Node<E> node(int index) {
+
+        if (index < (size >> 1)) {
+            Node<E> x = first;
+            for (int i = 0; i < index; i++)
+                x = x.next;
+            return x;
+        } else {
+            Node<E> x = last;
+            for (int i = size - 1; i > index; i--)
+                x = x.prev;
+            return x;
+        }
+    }
+
     public MyLinkedList() {
     }
 
@@ -55,8 +70,7 @@ public class MyLinkedList<E> implements MyList<E> {
         if (index == size)
             linkLast(element);
         else
-            System.out.println("");
-            //linkBefore(element, node(index));
+            linkBefore(element, node(index));
         return true;
     }
 
@@ -98,12 +112,19 @@ public class MyLinkedList<E> implements MyList<E> {
      * Links e as last element.
      */
     void linkLast(E e) {
-        //取得最后一个元素
+        final Node<E> l = last;
+        /**
+         *
+         * 1.未添加新节点时的最后一个节点为新节点的上一个节点
+         * 2.新节点的下一个节点为空
+         */
+        final Node<E> newNode = new Node<>(l, e, null);
+        //将新节点赋值为链表最后一个节点
+        last = newNode;
+
+        // 取得最后一个元素 last
         // 1.如果最后一个元素为null 说明该链表为空
         // 2.若果最后一个元素不为null 说明链表不为空
-        final Node<E> l = last;
-        final Node<E> newNode = new Node<>(l, e, null);
-        last = newNode;
         if (l == null)
             first = newNode;
         else
