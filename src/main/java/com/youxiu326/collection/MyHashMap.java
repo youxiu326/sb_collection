@@ -61,13 +61,12 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     }
 
     @Override
-    public V get(K k) {
-        return null;
-    }
+    public V get(K key) {
+        int hashCode = key.hashCode();
+        int index = hashCode % DEFAULT_INITIAL_CAPACITY;
+        Node<K,V> node = getNode(table[index],key);
 
-    @Override
-    public int size() {
-        return 0;
+        return node == null ? null : node.value;
     }
 
     public Node<K, V> getNode(Node<K, V> node, K k) {
@@ -78,6 +77,11 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
             node = node.next;
         }
         return null;
+    }
+
+    @Override
+    public int size() {
+        return 0;
     }
 
     // 定义节点
