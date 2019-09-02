@@ -45,16 +45,18 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
                 // equals 比较字符串     == 比较值引用
                 if (newNode.getKey().equals(key) || newNode.getKey()==key){
                     // 修改 value
-                    newNode.setValue(value);
+                    return newNode.setValue(value);
                 } else {
-                    // 已经遍历到最后一个弄得，添加将最新node添加至最前面
+                    // 已经遍历到最后一个node，添加将最新node添加至最前面
                     if (newNode.next == null){
                         node = new Node(key,value,node);
+                        size++;
                     }
                 }
                 newNode = newNode.next;
             }
         }
+        table[index] = node;
         return null;
     }
 
@@ -114,7 +116,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     /**
      *  测试方法.打印所有的链表元素
      */
-    void print() {
+    public void print() {
 
         for (int i = 0; i < table.length; i++) {
             Node<K, V> node = table[i];

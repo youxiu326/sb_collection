@@ -23,4 +23,6 @@ public interface MyMap<K,V> {
         V setValue(V value);
     }
 
+    public void print();
+
 } 
