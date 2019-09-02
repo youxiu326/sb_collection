@@ -5,9 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -19,6 +17,9 @@ public class CollectionApplicationTests {
         List list = new ArrayList();
 
         LinkedList linkedList = new LinkedList();
+
+
+        Map map = new HashMap();
 
     }
 
