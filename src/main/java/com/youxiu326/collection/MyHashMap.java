@@ -42,12 +42,19 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         }else {
             Node<K,V> newNode = node;
             while (newNode!=null){
+                // equals 比较字符串     == 比较值引用
                 if (newNode.getKey().equals(key) || newNode.getKey()==key){
-
+                    // 修改 value
+                    newNode.setValue(value);
+                } else {
+                    // 已经遍历到最后一个弄得，添加将最新node添加至最前面
+                    if (newNode.next == null){
+                        node = new Node(key,value,node);
+                    }
                 }
+                newNode = newNode.next;
             }
         }
-
         return null;
     }
 
@@ -103,4 +110,28 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         }
 
     }
+
+    /**
+     *  测试方法.打印所有的链表元素
+     */
+    void print() {
+
+        for (int i = 0; i < table.length; i++) {
+            Node<K, V> node = table[i];
+            System.out.print("下标位置[" + i + "]");
+            while (node != null) {
+                System.out.print("[ key:" + node.getKey() + ",value:" + node.getValue() + "]");
+                node = node.next;
+                // if (node.next != null) {
+                // node = node.next;
+                // } else {
+                // // 结束循环
+                // node = null;
+                // }
+            }
+            System.out.println();
+        }
+
+    }
+
 }
