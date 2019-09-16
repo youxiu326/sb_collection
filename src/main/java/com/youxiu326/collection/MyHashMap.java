@@ -30,6 +30,14 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
             table = new Node[DEFAULT_INITIAL_CAPACITY];
         }
 
+        // 2. hashMap 扩容机制 为什么要扩容？扩容数组之后，有什么影响？ hahsmap 中是从什么时候开始扩容
+        // 实际存储大小=负载因子*初始容量=DEFAULT_LOAD_FACTOR0.75*DEFAULT_INITIAL_CAPACITY16=12
+        // 如果size>12的时候就需要开始扩容数组,扩容数组大小之前两倍
+        if (size > (DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY)) {
+            // 需要开始对table进行属数组扩容
+            resize();
+        }
+
         // 2. 通过取模算法 获得下标
 
         int hashCode = key.hashCode();
@@ -77,6 +85,38 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
             node = node.next;
         }
         return null;
+    }
+
+    // 对table进行扩容
+    private void resize() {
+
+        // 1.生成新的table 是之前的两倍
+        Node<K, V>[] newTable =new Node[DEFAULT_INITIAL_CAPACITY<<1];
+        // 2.重新计算index索引，存放在新的table里面
+        for (int i = 0; i < table.length; i++) {
+            Node<K, V> oldNode = table[i];
+            while (oldNode!=null){
+                table[i] = null;//垃圾回收
+                K oldKey = oldNode.getKey();
+                int index = getIndex(oldKey, newTable.length);
+
+
+
+            }
+        }
+
+    }
+
+    /**
+     * 计算下标
+     * @param k
+     * @param length
+     * @return
+     */
+    public int getIndex(K k,int length){
+        int hashCode = k.hashCode();
+        int index = hashCode% length;
+        return index;
     }
 
     @Override

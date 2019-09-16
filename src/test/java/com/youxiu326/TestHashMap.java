@@ -16,7 +16,10 @@ public class TestHashMap {
         myMap.put("6号", "6号值");// 4
         myMap.put("7号", "7号值");
         myMap.put("14号", "14号值");
-
+        for (int i = 0; i < 35; i++) {
+            myMap.put(i+"牛逼", i+"");
+        }
+        myMap.put("14号", "14号值的值的值");
         myMap.print();
 
     }
