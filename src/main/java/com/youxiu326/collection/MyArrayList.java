@@ -132,7 +132,7 @@ public class MyArrayList<E> implements MyList<E> {
     }
 
     private void rangeCheck(int index) {
-        if (index >= size) {
+        if (index<0 || index > size) {
             throw new IndexOutOfBoundsException("数组越界啦!");
         }
     }
