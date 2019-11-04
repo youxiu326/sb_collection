@@ -47,8 +47,13 @@ public class MyArrayList<E> implements MyList<E> {
     @Override
     public boolean add(int index, E object) {
         rangeCheck(index);
-        ensureExplicitCapacity(index+1);
-        // System.arraycopy 将数组从指定的源数组(从指定位置开始)复制到目标数组的指定位置
+        ensureExplicitCapacity(size+1);
+        /* System.arraycopy 将数组从指定的源数组(从指定位置开始)复制到目标数组的指定位置
+         * 开始执行数组复制操作
+         * 将源数组['h','e','l','l','o','w']从数组下标0开始的4位长度的数组['h','e','l','l']
+         * 复制到目标数组['1','2','3','4','5','6','7','8','9'],从下标为3的位置开始
+         * System.arraycopy(src,0,dest,3,4);
+         */
         System.arraycopy(elementData, index, elementData, index+1, size-index);
         elementData[index] = object;
         size++;
