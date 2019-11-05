@@ -53,6 +53,9 @@ public class MyArrayList<E> implements MyList<E> {
          * 将源数组['h','e','l','l','o','w']从数组下标0开始的4位长度的数组['h','e','l','l']
          * 复制到目标数组['1','2','3','4','5','6','7','8','9'],从下标为3的位置开始
          * System.arraycopy(src,0,dest,3,4);
+         * src源数组为：hellow
+         * dest目标数组为：123456789
+         * 复制完成之后的目标数组为：123hell89
          */
         System.arraycopy(elementData, index, elementData, index+1, size-index);
         elementData[index] = object;

@@ -18,7 +18,8 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     int size;
 
     // 3.HashMap默认负载因子，负载因子越小，hash冲突机率越低， 根据每个链表的个数
-    float DEFAULT_LOAD_FACTOR = 0.5f;
+    float DEFAULT_LOAD_FACTOR = 0.75f;
+
     // 4.table默认初始大小 16
     static int DEFAULT_INITIAL_CAPACITY = 16; //  aka 1 << 4
 
@@ -76,7 +77,6 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
 
         return node == null ? null : node.value;
     }
-
     public Node<K, V> getNode(Node<K, V> node, K k) {
         while (node != null) {
             if (node.getKey().equals(k)) {

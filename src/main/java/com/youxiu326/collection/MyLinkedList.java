@@ -1,7 +1,6 @@
 package com.youxiu326.collection;
 
 import com.youxiu326.inter.MyList;
-
 import java.util.LinkedList;
 
 public class MyLinkedList<E> implements MyList<E> {
