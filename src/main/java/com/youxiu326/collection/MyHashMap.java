@@ -103,7 +103,9 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
                 int index = getIndex(oldKey, newTable.length);
                 //存放之前的 table 原来的 node next
                 Node<K, V> oldNext = oldNode.next;
-                //将节点存放在新 table 链表的表头 如果 index 下表在新 newTable 发生相同的时候，以链表进行存储   原来的 node 的下一个是最新的（原来的node存放在新的 node 下一个）
+                //将节点存放在新table链表的表头,如果index下标在新 newTable发生相同的时候，
+                // 以链表进行存储
+                // 原来的 node 的下一个是最新的（原来的node存放在新的 node 下一个）
                 oldNode.next = newTable[index];
                 //将之前的 node 赋值给 newTable[index]
                 newTable[index] = oldNode;
