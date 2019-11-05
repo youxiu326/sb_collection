@@ -96,15 +96,25 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         for (int i = 0; i < table.length; i++) {
             Node<K, V> oldNode = table[i];
             while (oldNode!=null){
-                table[i] = null;//垃圾回收
+                table[i] = null;// 为了垃圾回收机制能够回收 将之前的 node 删除
+                //存放之前的 table 原来的 node key
                 K oldKey = oldNode.getKey();
+                //重新计算 index
                 int index = getIndex(oldKey, newTable.length);
-
-
-
+                //存放之前的 table 原来的 node next
+                Node<K, V> oldNext = oldNode.next;
+                //将节点存放在新 table 链表的表头 如果 index 下表在新 newTable 发生相同的时候，以链表进行存储   原来的 node 的下一个是最新的（原来的node存放在新的 node 下一个）
+                oldNode.next = newTable[index];
+                //将之前的 node 赋值给 newTable[index]
+                newTable[index] = oldNode;
+                oldNode = oldNext;
             }
         }
-
+        // 将新的 newTable 赋值给老的 table
+        table = newTable;
+        DEFAULT_INITIAL_CAPACITY = newTable.length;
+        // 为了垃圾回收机制能够回收
+        newTable = null;
     }
 
     /**
